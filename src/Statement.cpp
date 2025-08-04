@@ -114,7 +114,7 @@ void Statement::bind(const int aIndex, const double aValue)
  *
  * @note Uses the SQLITE_TRANSIENT flag, making a copy of the data, for SQLite internal use
  */
-void Statement::bind(const int aIndex, const std::string_view&  aValue) {
+void Statement::bind(const int aIndex, const std::string_view  aValue) {
     const int ret = sqlite3_bind_text(getPreparedStatement(), aIndex, aValue.data(),
                                       static_cast<int>(aValue.size()), SQLITE_TRANSIENT);
     check(ret);
@@ -146,7 +146,7 @@ void Statement::bind(const int aIndex, const void* apValue, const int aSize)
 
 #if __cplusplus >= 201703L // C++17
 // Bind a string value to a parameter "?", "?NNN", ":VVV", "@VVV" or "$VVV" in the SQL prepared statement
-void Statement::bindNoCopy(const int aIndex, const std::string_view& aValue)
+void Statement::bindNoCopy(const int aIndex, const std::string_view aValue)
 {
     const int ret = sqlite3_bind_text(getPreparedStatement(), aIndex, aValue.data(),
                                       static_cast<int>(aValue.size()), SQLITE_STATIC);
